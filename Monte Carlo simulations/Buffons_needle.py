@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time as t
 
-n_needle=int(10000)
+n_needle=int(1000000)
 
 ping = t.time()
 
@@ -29,45 +29,45 @@ def checkintersection(s):
 ######This methode to simply/ mathematically simulate#########
 
 
-# counter = 0
+counter = 0
 
-# for _ in range(n_needle):
-#     i = createneedle(length)
+for _ in range(n_needle):
+    i = createneedle(length)
 
-#     if checkintersection(i):
-#         counter+=1
+    if checkintersection(i):
+        counter+=1
 
-# print(n_needle/counter)
+print(n_needle/counter)
 
 
 
 
 #######This method required for ploting ##########
 
-cords = []
+# cords = []
 
 
-for _ in range(n_needle):
-    cords.append(createneedle(length))
-#print(cords)    
-cords = np.array(cords)
-#print(cords)
-#print(np.max(cords), np.min(cords))
+# for _ in range(n_needle):
+#     cords.append(createneedle(length))
+# #print(cords)    
+# cords = np.array(cords)
+# #print(cords)
+# #print(np.max(cords), np.min(cords))
 
-for n in cords:
-    plt.plot(n[:,0] , n[:,1])     ###Matplotlib
-plt.hlines(y_lines, -2, 12, colors = "black")
-plt.show()
+# for n in cords:
+#     plt.plot(n[:,0] , n[:,1])     ###Matplotlib
+# plt.hlines(y_lines, -2, 12, colors = "black")
+# plt.show()
 
-counter = 0
+# counter = 0
 
-for n in cords: 
-   if checkintersection(n):
-       counter+=1
+# for n in cords: 
+#    if checkintersection(n):
+#        counter+=1
 
-pong = t.time()
+# pong = t.time()
 
-print(n_needle/counter)      
-print(pong-ping)       
+# print(n_needle/counter)      
+# print(pong-ping)       
     
 
