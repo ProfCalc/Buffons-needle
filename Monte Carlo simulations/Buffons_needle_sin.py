@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time as t
 
-n_needle=int(100000)
+#n_needle=int(100)
+
 
 ping = t.time()
 
@@ -38,29 +39,54 @@ def checkmultintersection(s,n):
 
 
 #######################SIMPLE CASE##########################################
-counter = 0
+# counter = 0
 
-for _ in range(n_needle):
-    i = createneedle(length)
-    for n in np.arange(0,1,0.1):
-        if checkmultintersection(i,n):
-            counter+=1
+# for _ in range(n_needle):
+#     i = createneedle(length)
+#     for n in np.arange(0,1,0.1):
+#         if checkmultintersection(i,n):
+#             counter+=1
 
-print(counter/n_needle)
+# print(counter/n_needle)
 
 #######################AVERAGE CASE###################################
-fv=[]
-for _ in range(100):
-    counter = 0
+# fv=[]
+# for _ in range(10):
+#     counter = 0
 
+#     for _ in range(n_needle):
+#         i = createneedle(length)
+#         for n in np.arange(0,1,0.1):
+#             if checkmultintersection(i,n):
+#                 counter+=1
+#     fv.append((counter/n_needle))
+
+# np.array(fv)
+# print(fv)
+# print(np.mean(fv))
+
+#################### Testing the convergence of the monte carlo simulation #########################
+n_needle = 10
+needles = []
+value = []
+while n_needle < 100001:
+    counter = 0
     for _ in range(n_needle):
         i = createneedle(length)
         for n in np.arange(0,1,0.1):
             if checkmultintersection(i,n):
                 counter+=1
-    fv.append((counter/n_needle))
+    needles.append(n_needle)
+    value.append((counter/n_needle))
+    n_needle = n_needle*2
+print(needles)
+print(value)
+plt.plot(needles, value)
+plt.xlabel('Needles')
+plt.ylabel('Value of Pi')
+plt.xticks(needles)
+plt.title('Convergence of monte carlo')
+plt.show()
 
-np.array(fv)
-print(np.mean(fv))
 
 
