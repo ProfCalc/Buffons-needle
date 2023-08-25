@@ -40,14 +40,15 @@ def checkmultintersection(s,n):
 
 #######################SIMPLE CASE##########################################
 # counter = 0
-
+# n_needle = 100000
 # for _ in range(n_needle):
 #     i = createneedle(length)
 #     for n in np.arange(0,1,0.1):
 #         if checkmultintersection(i,n):
 #             counter+=1
+#             break
 
-# print(counter/n_needle)
+# print(n_needle/counter)
 
 #######################AVERAGE CASE###################################
 # fv=[]
@@ -59,34 +60,59 @@ def checkmultintersection(s,n):
 #         for n in np.arange(0,1,0.1):
 #             if checkmultintersection(i,n):
 #                 counter+=1
-#     fv.append((counter/n_needle))
+#     fv.append((n_needle/counter))
 
 # np.array(fv)
 # print(fv)
 # print(np.mean(fv))
 
 #################### Testing the convergence of the monte carlo simulation #########################
+
+
+# n_needle = 10
+# needles = []
+# value = []
+# while n_needle < 100001:
+#     counter = 0
+#     for _ in range(n_needle):
+#         i = createneedle(length)
+#         for n in np.arange(0,1,0.1):
+#             if checkmultintersection(i,n):
+#                 counter+=1
+#     needles.append(n_needle)
+#     value.append((n_needle/counter))
+#     n_needle = n_needle*2
+
+
+# print(needles)
+# print(value)
+# # plt.plot(needles, value)
+# # plt.xlabel('Needles')
+# # plt.ylabel('Value of Pi')
+# # plt.xticks(needles)
+# # plt.title('Convergence of monte carlo')
+# # plt.show()
+
+# f = open("Sin_Values.txt", "w" )
+# for i in range (0,len(needles)-1,1):
+#     f.write("X Y")
+#     f.write("%s  %s \n"%(needles[i],value[i]))
+
+########################## Print out in Text##############################################
+
 n_needle = 10
-needles = []
-value = []
-while n_needle < 100001:
+f = open("sin_Values.txt", "w" )
+f.write("X Y \n")
+while n_needle < 1000001:
     counter = 0
     for _ in range(n_needle):
         i = createneedle(length)
         for n in np.arange(0,1,0.1):
             if checkmultintersection(i,n):
-                counter+=1
-    needles.append(n_needle)
-    value.append((counter/n_needle))
-    n_needle = n_needle*2
-print(needles)
-print(value)
-plt.plot(needles, value)
-plt.xlabel('Needles')
-plt.ylabel('Value of Pi')
-plt.xticks(needles)
-plt.title('Convergence of monte carlo')
-plt.show()
+                counter+=1 
+                break      
+        
 
-
+    f.write("%s %s \n"%(n_needle,n_needle/counter))
+    n_needle= n_needle*2
 
