@@ -1,13 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time as t
+from scipy import signal
+
 
 #n_needle=int(100)
 
 
+ping = t.time()
+
 length = 0.5
 
 y_lines= [-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+def sawtooth(x):
+    return  (1/2 - (1/np.pi)*(np.sin(np.pi*x) + np.sin(2*np.pi*x)/2 + np.sin(3*np.pi*x)/3 + np.sin(4*np.pi*x)/4 + np.sin(5*np.pi*x)/5))
+
+
+
 
 def createneedle(l = 1):
     startpoint = (np.random.uniform(0,10),np.random.uniform(0,10))
@@ -26,11 +36,12 @@ def createneedle(l = 1):
     
 #     return False
 
+
 def checkmultintersection(s,n):
     ycord = ((s[0][1]*n) + (s[1][1]*(1-n)))
     xcord = ((s[0][0]*n) + (s[1][0]*(1-n)))
     for i in y_lines:
-        if (s[0][1]-(np.sin(s[0][0])+i))*(ycord - (np.sin(xcord)+i)) < 0:
+        if (s[0][1] - sawtooth(s[0][0]) - i)*(ycord - (sawtooth(xcord)+i)) < 0:
             return True
     return False
 
@@ -99,9 +110,10 @@ def checkmultintersection(s,n):
 ########################## Print out in Text##############################################
 
 n_needle = 10
-f = open("sin_Values.txt", "w" )
-f.write("X Y \n")
+f = open("sawtooth_Values.txt", "w" )
+f.write("X\tY \n")
 while n_needle < 1000001:
+    print(n_needle)
     counter = 0
     for _ in range(n_needle):
         i = createneedle(length)
@@ -111,6 +123,5 @@ while n_needle < 1000001:
                 break      
         
 
-    f.write("%s %s \n"%(n_needle,n_needle/counter))
+    f.write("%s\t%s \n"%(n_needle,n_needle/counter))
     n_needle= n_needle*2
-
